@@ -200,7 +200,8 @@ const CONFIG = {
   to: "Hu hu hu hu",
   message: "Nhân ngày 20 tháng 10, chúc cậu luôn xinh đẹp, rạng rỡ và bình an.\nMong mỗi ngày của cậu đều nhẹ nhàng như cánh hoa, ấm áp như nắng sớm, và luôn có thật nhiều lý do để mỉm cười. Không cảm ơn, không thân.",
   from: "Người luôn ghét cậu",
-  photo: "anh.jpg"
+  photo: "anh.jpg",
+  music: ""   // để trống = hộp nhạc tự tạo; hoặc tên file nhạc đặt cạnh index.html, ví dụ "nhac.mp3"
 };
 
 // Tham số trên URL (dùng được khi tự host): ?to=...&from=...&msg=...&photo=...
@@ -210,6 +211,7 @@ try{
   if(q.get('from')) CONFIG.from = q.get('from');
   if(q.get('msg')) CONFIG.message = q.get('msg');
   if(q.get('photo')) CONFIG.photo = q.get('photo');
+  if(q.get('music')) CONFIG.music = q.get('music');
 }catch(e){}
 
 const store = {
@@ -314,7 +316,32 @@ function schedule(){
   }
 }
 function updateSoundBtn(){ $('#soundLabel').textContent = musicOn ? 'Nhạc: bật' : 'Nhạc: tắt'; $('#soundBtn').setAttribute('aria-pressed', musicOn?'true':'false'); }
+let musicEl=null, silentEl=null;
+// iPhone: Web Audio bị tắt khi bật công tắc im lặng. Phát kèm một đoạn âm thanh rỗng
+// bằng thẻ <audio> để Safari chuyển sang chế độ "playback", khi đó nhạc vẫn kêu.
+function silentWavUrl(){
+  const n=1600, buf=new ArrayBuffer(44+n*2), v=new DataView(buf);
+  const w=(o,str)=>{ for(let i=0;i<str.length;i++) v.setUint8(o+i,str.charCodeAt(i)); };
+  w(0,'RIFF'); v.setUint32(4,36+n*2,true); w(8,'WAVE'); w(12,'fmt '); v.setUint32(16,16,true);
+  v.setUint16(20,1,true); v.setUint16(22,1,true); v.setUint32(24,8000,true); v.setUint32(28,16000,true);
+  v.setUint16(32,2,true); v.setUint16(34,16,true); w(36,'data'); v.setUint32(40,n*2,true);
+  return URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));
+}
+function unlockPlayback(){
+  try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
+  try{
+    if(!silentEl){ silentEl=new Audio(silentWavUrl()); silentEl.loop=true; silentEl.setAttribute('playsinline',''); }
+    const p=silentEl.play(); if(p&&p.catch) p.catch(()=>{});
+  }catch(e){}
+}
 function musicStart(){
+  unlockPlayback();
+  if(CONFIG.music){
+    if(!musicEl){ musicEl=new Audio(CONFIG.music); musicEl.loop=true; musicEl.volume=0.85; musicEl.setAttribute('playsinline',''); }
+    musicOn=true; updateSoundBtn();
+    const p=musicEl.play(); if(p&&p.catch) p.catch(()=>{ musicOn=false; updateSoundBtn(); });
+    return;
+  }
   ensureAudio(); if(!actx) return;
   if(actx.resume) actx.resume();
   if(!schedTimer){ loopStart=actx.currentTime+0.15; evIdx=0; schedTimer=setInterval(schedule,120); schedule(); }
@@ -322,9 +349,17 @@ function musicStart(){
   musicOn=true; updateSoundBtn();
 }
 function musicStop(){
+  if(musicEl) musicEl.pause();
+  if(silentEl) silentEl.pause();
   if(actx){ master.gain.cancelScheduledValues(actx.currentTime); master.gain.setTargetAtTime(0,actx.currentTime,0.12); }
   clearInterval(schedTimer); schedTimer=null; musicOn=false; updateSoundBtn();
 }
+// tạm dừng khi chuyển tab, phát tiếp khi quay lại
+document.addEventListener('visibilitychange',()=>{
+  if(!musicOn) return;
+  if(document.hidden){ if(musicEl) musicEl.pause(); if(actx&&actx.suspend) actx.suspend(); }
+  else { if(musicEl){ const p=musicEl.play(); if(p&&p.catch) p.catch(()=>{}); } if(actx&&actx.resume) actx.resume(); }
+});
 $('#soundBtn').addEventListener('click', ()=> musicOn ? musicStop() : musicStart());
 
 /* ---------------- 3D scene ---------------- */
