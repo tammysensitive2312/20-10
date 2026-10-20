@@ -1,0 +1,26 @@
+VƯỜN HỒNG 20·10: HƯỚNG DẪN
+
+1) SỬA TÊN, LỜI CHÚC, ẢNH
+   Mở index.html bằng Notepad / VS Code, tìm đoạn "const CONFIG = {" và sửa:
+     to:      tên người nhận (hiện "Gửi <to>")
+     message: lời chúc (xuống dòng bằng \n)
+     from:    chữ ký
+     photo:   tên file ảnh đặt cùng thư mục, ví dụ "anh.jpg"
+   Lưu file, mở index.html bằng trình duyệt để xem thử.
+
+2) ĐƯA LÊN INTERNET (miễn phí, khoảng 1 phút)
+   Cách nhanh nhất: Netlify Drop
+     - Vào https://app.netlify.com/drop
+     - Kéo cả thư mục 20-10 (gồm index.html và ảnh) thả vào trang
+     - Nhận đường link dạng https://xxx.netlify.app để gửi đi
+   Cách khác: GitHub Pages
+     - Tạo repo mới, upload index.html và ảnh
+     - Settings > Pages > Deploy from branch > main > Save
+     - Link: https://<tên-github>.github.io/<tên-repo>/
+
+3) MỘT LINK, NHIỀU NGƯỜI NHẬN (khi tự host)
+   Thêm tham số vào cuối link:
+     https://xxx.netlify.app/?to=Mẹ&from=Con&msg=Con chúc mẹ luôn khoẻ
+   (có thể thêm &photo=anh-me.jpg nếu đã upload ảnh đó)
+
+Ghi chú: trang cần Internet để tải thư viện 3D (three.js) và font chữ.
