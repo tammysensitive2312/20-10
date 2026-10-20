@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Quẩy 20·10</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Lời chúc 20/10 phong cách sân khấu neon, chạy theo nhạc.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,800;1,800&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: full-bleed 3D neon stage; kinetic words centre-top; a VIP pass bottom-left. Single dark rave look by choice. */
+:root{
+  --bg:#07040f;
+  --pink:#ff2bd6;
+  --cyan:#22f0ff;
+  --lime:#c6ff3d;
+  --violet:#7b3cff;
+  --ink:#f4f0ff;
+  --muted:#a99cc9;
+  --panel:rgba(12,6,26,.78);
+  --f-display:"Bungee","Arial Black",Impact,sans-serif;
+  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);overflow:hidden;-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;outline:none}
+#scene.dragging{cursor:grabbing}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.ui{position:fixed;inset:0;z-index:2;pointer-events:none;display:grid;grid-template-rows:auto 1fr auto;gap:12px;
+  padding-block:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ui>*{min-width:0}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.live{margin:0;font:700 11px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink);display:flex;align-items:center;gap:10px;opacity:0;transition:opacity .6s}
+.live.show{opacity:1}
+.live i{width:9px;height:9px;border-radius:50%;background:var(--pink);box-shadow:0 0 12px var(--pink);animation:blink 0.94s steps(2) infinite}
+.live b{color:var(--muted);font-weight:400}
+@keyframes blink{50%{opacity:.25}}
+.icon-btn{pointer-events:auto;white-space:nowrap;flex:none;display:inline-flex;align-items:center;gap:8px;font:700 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);
+  background:rgba(12,6,26,.6);border:1px solid rgba(34,240,255,.45);border-radius:6px;padding:10px 13px;cursor:pointer;transition:background .2s,box-shadow .2s}
+.icon-btn:hover{background:rgba(34,240,255,.12);box-shadow:0 0 18px rgba(34,240,255,.35)}
+.icon-btn svg{width:15px;height:15px}
+
+.words{position:fixed;left:0;right:0;top:12%;z-index:1;pointer-events:none;text-align:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.word{display:inline-block;font-family:var(--f-display);font-size:clamp(44px,10vw,132px);line-height:1;letter-spacing:.01em;color:var(--ink);
+  text-shadow:0 0 18px var(--pink),0 0 42px rgba(255,43,214,.6),4px 4px 0 var(--violet);opacity:0}
+.word.cyan{text-shadow:0 0 18px var(--cyan),0 0 42px rgba(34,240,255,.55),4px 4px 0 var(--violet)}
+.word.lime{color:var(--bg);-webkit-text-stroke:2px var(--lime);text-shadow:0 0 22px var(--lime)}
+.word.pop{animation:pop var(--dur,1.4s) cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{0%{opacity:0;transform:scale(1.6) skewX(-8deg)}12%{opacity:1;transform:scale(1) skewX(-8deg)}75%{opacity:1;transform:scale(1.04) skewX(-8deg)}100%{opacity:0;transform:scale(1.1) skewX(-8deg)}}
+
+.pass{pointer-events:auto;align-self:end;width:min(400px,100%);box-sizing:border-box;max-height:min(62vh,560px);overflow:auto;position:relative;
+  background:var(--panel);border-radius:14px;padding:0 0 14px;border:1.5px solid transparent;
+  background-image:linear-gradient(var(--panel),var(--panel)),linear-gradient(135deg,var(--pink),var(--violet) 45%,var(--cyan));
+  background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 0 30px rgba(255,43,214,.25),0 20px 50px rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  opacity:0;transform:translateY(30px) rotate(-2deg);visibility:hidden;transition:opacity .7s,transform .7s cubic-bezier(.2,1.3,.4,1),visibility .7s}
+.pass.show{opacity:1;transform:rotate(-1.2deg);visibility:visible}
+.pass.thump{animation:thump .25s ease-out}
+@keyframes thump{0%{transform:rotate(-1.2deg) scale(1.025)}100%{transform:rotate(-1.2deg) scale(1)}}
+.pass-top{display:flex;justify-content:space-between;align-items:center;padding:9px 16px;background:linear-gradient(90deg,var(--pink),var(--violet));
+  font:700 11px/1 var(--f-mono);letter-spacing:.2em;color:#fff;border-radius:12px 12px 0 0}
+.pass-body{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 16px 6px}
+.pass-photo{width:82px;aspect-ratio:1;max-width:100%;border-radius:10px;overflow:hidden;cursor:pointer;position:relative;display:block;
+  border:1.5px solid var(--cyan);box-shadow:0 0 14px rgba(34,240,255,.4);background:rgba(34,240,255,.06)}
+.pass-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.pass-photo span{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:700 10px/1.3 var(--f-mono);letter-spacing:.08em;color:var(--cyan);padding:6px}
+.pass-photo:focus-within{outline:2px solid var(--lime);outline-offset:3px}
+.pass-id{min-width:0}
+.pass-label{margin:0;font:400 10px/1.4 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pass-to{margin:4px 0 6px;font-family:var(--f-display);font-size:clamp(26px,3.2vw,36px);line-height:1.05;text-transform:uppercase;overflow-wrap:anywhere;
+  background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px rgba(255,43,214,.45))}
+.pass-msg{margin:6px 16px 0;font:600 15.5px/1.55 var(--f-body);color:var(--ink)}
+.pass-msg span{display:block;opacity:0;transform:translateX(-10px);transition:opacity .35s,transform .35s}
+.pass-msg span.on{opacity:1;transform:none}
+.pass-msg span+span{margin-top:6px}
+.pass-from{margin:10px 16px 0;font:800 italic 15px/1.3 var(--f-body);color:var(--lime);text-align:right}
+.pass-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 16px 0}
+.barcode{flex:1;min-width:0;max-width:170px;height:30px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px,var(--ink) 8px 11px,transparent 11px 13px);opacity:.75;position:relative}
+.barcode::after{content:"20102026";position:absolute;left:0;bottom:-13px;font:400 9px/1 var(--f-mono);letter-spacing:.3em;color:var(--muted)}
+.btn{font:700 13px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:12px 16px;border-radius:8px;border:none;cursor:pointer;
+  color:var(--bg);background:var(--lime);box-shadow:0 0 18px rgba(198,255,61,.45);transition:transform .15s,box-shadow .2s;white-space:nowrap}
+.btn:hover{box-shadow:0 0 28px rgba(198,255,61,.7)}
+.btn:active{transform:scale(.96)}
+.btn:focus-visible,.icon-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+.intro{position:fixed;inset:0;z-index:5;display:grid;place-items:center;text-align:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px;
+  background:radial-gradient(ellipse at 50% 50%,rgba(7,4,15,.3),rgba(7,4,15,.88) 70%);transition:opacity .5s,visibility .5s}
+.intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+.intro-inner{max-width:640px}
+.intro .tag{font:700 12px/1 var(--f-mono);letter-spacing:.3em;color:var(--cyan);margin:0 0 14px}
+.intro h2{margin:0;font-family:var(--f-display);font-weight:400;font-size:clamp(84px,20vw,190px);line-height:.9;color:var(--ink);
+  text-shadow:0 0 20px var(--pink),0 0 60px rgba(255,43,214,.55),6px 6px 0 var(--violet);animation:flicker 4s infinite}
+@keyframes flicker{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.55}}
+.intro .sub{font:800 italic clamp(20px,3vw,28px)/1.2 var(--f-body);margin:16px 0 26px;color:var(--lime);text-shadow:0 0 14px rgba(198,255,61,.5)}
+#openBtn{font-size:15px;padding:16px 28px}
+.intro .note{font:400 11px/1.6 var(--f-mono);letter-spacing:.06em;color:var(--muted);margin:18px 0 0}
+.flash{position:fixed;inset:0;z-index:3;pointer-events:none;background:#fff;opacity:0}
+.flash.go{animation:flash .45s ease-out}
+@keyframes flash{0%{opacity:.75}100%{opacity:0}}
+.fallback{position:fixed;top:40%;left:0;right:0;text-align:center;color:var(--muted);z-index:1;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+@media (max-width:640px){
+  .pass{width:100%;max-height:46vh}
+  .pass-photo{width:64px}
+  .pass-msg{font-size:14.5px}
+  .words{top:8%}
+  .word{font-size:clamp(30px,9.5vw,56px);max-width:100%;text-wrap:balance}
+  .live b{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .word{opacity:1}
+}
+</style>
+</head>
+<body>
+
+
+<canvas id="scene" aria-label="Sân khấu neon 3D chạy theo nhạc. Kéo để xoay."></canvas>
+<p class="fallback" id="fallback" hidden>Trình duyệt này chưa hiển thị được 3D, nhưng vé mời vẫn ở đây.</p>
+<div class="words" aria-hidden="true"><span class="word" id="word"></span></div>
+<div class="flash" id="flash"></div>
+
+<div class="ui">
+  <header class="topbar">
+    <p class="live" id="live"><i></i>LIVE · 128 BPM <b>· kéo để xoay sân khấu</b></p>
+    <button class="icon-btn" id="soundBtn" type="button" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+      <span id="soundLabel">Nhạc: tắt</span>
+    </button>
+  </header>
+  <div></div>
+  <article class="pass" id="pass" aria-live="polite">
+    <div class="pass-top"><span>VIP PASS</span><span>ALL ACCESS</span></div>
+    <div class="pass-body">
+      <label class="pass-photo" for="photoInput" title="Chọn ảnh">
+        <img id="photoImg" alt="Ảnh khách mời" hidden>
+        <span id="photoEmpty">+ THÊM<br>ẢNH</span>
+      </label>
+      <input type="file" id="photoInput" accept="image/*" class="sr-only">
+      <div class="pass-id">
+        <p class="pass-label">Khách mời đặc biệt</p>
+        <h1 class="pass-to" id="passTo">CHỊ</h1>
+        <p class="pass-label">20.10.2026 · Ngày Phụ nữ Việt Nam</p>
+      </div>
+    </div>
+    <p class="pass-msg" id="passMsg"></p>
+    <p class="pass-from" id="passFrom"></p>
+    <div class="pass-foot">
+      <span class="barcode" aria-hidden="true"></span>
+      <button class="btn" id="replayBtn" type="button">Quẩy lại</button>
+    </div>
+  </article>
+</div>
+
+<div class="intro" id="intro">
+  <div class="intro-inner">
+    <p class="tag">NGÀY PHỤ NỮ VIỆT NAM · PARTY MODE</p>
+    <h2 aria-label="20 tháng 10">20·10</h2>
+    <p class="sub" id="introSub">Vé VIP cho chị đã sẵn sàng</p>
+    <button class="btn" id="openBtn" type="button">Bật nhạc · Vào quẩy</button>
+    <p class="note">Nên bật loa to. Trang có hiệu ứng ánh sáng nhấp nháy.</p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ============================================================
+   CONFIG: sửa tên, lời chúc, ảnh, nhạc ở đây
+   Mỗi dòng của message (ngăn bằng \n) sẽ hiện lần lượt theo nhạc.
+   ============================================================ */
+const CONFIG = {
+  to: "chị Dương",
+  message: "20/10 này chúc chị luôn cháy hết mình, xinh đẹp hết nấc và vui hết cỡ!\nChúc chị công việc thuận lợi, tiền vào như nước, lúc nào cũng có lý do để quẩy.\nHôm nay chị là nhân vật chính, cứ thế mà toả sáng nhé!",
+  from: "Đứa em của chị",
+  photo: "anh.jpg",
+  music: "nhac.mp3"
+};
+try{
+  const q=new URLSearchParams(location.search);
+  ['to','from','photo','music'].forEach(k=>{ if(q.get(k)) CONFIG[k]=q.get(k); });
+  if(q.get('msg')) CONFIG.message=q.get('msg');
+}catch(e){}
+
+const store={ get(k){ try{return localStorage.getItem(k);}catch(e){return null;} }, set(k,v){ try{localStorage.setItem(k,v);}catch(e){} } };
+const KEY_PHOTO='quay2010:photo';
+let photoSrc=store.get(KEY_PHOTO)||CONFIG.photo||'';
+const reduceMotion=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s);
+const passEl=$('#pass'), wordEl=$('#word');
+
+/* ---------------- pass card ---------------- */
+$('#passTo').textContent=CONFIG.to;
+$('#passFrom').textContent='— '+CONFIG.from;
+$('#introSub').textContent='Vé VIP cho '+CONFIG.to+' đã sẵn sàng';
+const lines=CONFIG.message.split('\n').filter(Boolean);
+$('#passMsg').innerHTML='';
+lines.forEach(l=>{ const s=document.createElement('span'); s.textContent=l; $('#passMsg').appendChild(s); });
+const lineEls=[...document.querySelectorAll('#passMsg span')];
+let lineTimers=[];
+function revealLines(){
+  lineTimers.forEach(clearTimeout); lineTimers=[];
+  lineEls.forEach(e=>e.classList.remove('on'));
+  lineEls.forEach((e,i)=>lineTimers.push(setTimeout(()=>e.classList.add('on'), reduceMotion?0:600+i*1400)));
+}
+function renderPhoto(){
+  const img=$('#photoImg');
+  if(photoSrc){ img.src=photoSrc; img.hidden=false; $('#photoEmpty').hidden=true; }
+  else { img.removeAttribute('src'); img.hidden=true; $('#photoEmpty').hidden=false; }
+}
+$('#photoInput').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const fr=new FileReader();
+  fr.onload=()=>{ const im=new Image(); im.onload=()=>{
+    const s=Math.min(1,600/Math.max(im.naturalWidth,im.naturalHeight)), c=document.createElement('canvas');
+    c.width=Math.round(im.naturalWidth*s); c.height=Math.round(im.naturalHeight*s); c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+    photoSrc=c.toDataURL('image/jpeg',0.86); store.set(KEY_PHOTO,photoSrc); renderPhoto(); }; im.src=fr.result; };
+  fr.readAsDataURL(f);
+});
+renderPhoto();
+
+/* ---------------- music + clock ---------------- */
+// Cấu trúc bài nhac.mp3: 0–15s groove, 15–30s build (tối đen ở phách cuối), 30–60s drop, lặp lại.
+const BPM=128, BEAT=60/BPM, BAR=BEAT*4, LOOP=60, BLACKOUT=29.53;
+let audio=null, musicOn=false, songT=0, started=false;
+function updateSoundBtn(){ $('#soundLabel').textContent=musicOn?'Nhạc: bật':'Nhạc: tắt'; $('#soundBtn').setAttribute('aria-pressed',musicOn?'true':'false'); }
+function ensureAudio(){
+  if(audio||!CONFIG.music) return;
+  audio=new Audio(CONFIG.music); audio.loop=true; audio.preload='auto'; audio.setAttribute('playsinline','');
+}
+function musicPlay(fromStart){
+  ensureAudio(); if(!audio) return;
+  try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
+  try{ audio.currentTime = fromStart ? 0 : (songT % LOOP); }catch(e){}
+  const p=audio.play(); musicOn=true; updateSoundBtn();
+  if(p&&p.catch) p.catch(()=>{ musicOn=false; updateSoundBtn(); });
+}
+function musicPause(){ if(audio) audio.pause(); musicOn=false; updateSoundBtn(); }
+$('#soundBtn').addEventListener('click',()=> musicOn ? musicPause() : musicPlay(false));
+document.addEventListener('visibilitychange',()=>{ if(!audio||!musicOn) return; if(document.hidden) audio.pause(); else { const p=audio.play(); if(p&&p.catch) p.catch(()=>{}); } });
+ensureAudio();
+
+function sectionAt(t){ return t<15?'groove':t<30?'build':'drop'; }
+function kickOn(t){ const bar=Math.floor(t/BAR); return !(bar===14||bar===15); }
+function energyAt(t){ if(t<15) return 0.55; if(t<BLACKOUT) return 0.4+0.6*((t-15)/(BLACKOUT-15)); if(t<30) return 0; return 1; }
+
+/* ---------------- kinetic words ---------------- */
+function showWord(text,cls,beats){
+  wordEl.className='word'; void wordEl.offsetWidth;
+  wordEl.textContent=text; if(!text) return;
+  wordEl.style.setProperty('--dur',(BEAT*(beats||3)).toFixed(2)+'s');
+  wordEl.className='word pop'+(cls?' '+cls:'');
+}
+const toUp=CONFIG.to.toUpperCase();
+const WORDS={8:['20.10','cyan',4],9:['NGÀY CỦA','',4],10:['PHỤ NỮ','',4],11:['VIỆT NAM','cyan',4],12:['TĂNG','lime',3],13:['NHIỆT','lime',3],14:['SẴN SÀNG?','',4],
+  16:['QUẨY LÊN!','lime',8],18:['CHÚC MỪNG','cyan',6],20:[toUp+' ƠI!','',6],22:['XINH ĐẸP','cyan',6],24:['20 THÁNG 10','lime',6],26:['RỰC RỠ','',6],28:['HẠNH PHÚC','cyan',6],30:['VUI HẾT NẤC!','lime',8]};
+
+/* ---------------- 3D ---------------- */
+let stage=null;
+try{ if(window.THREE) stage=buildStage(); }catch(err){ console.error(err); stage=null; }
+if(!stage) $('#fallback').hidden=false;
+
+function buildStage(){
+  const canvas=$('#scene');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
+  renderer.setClearColor(0x07040f,1);
+  const scene=new THREE.Scene();
+  scene.fog=new THREE.FogExp2(0x0c0620,0.035);
+  const camera=new THREE.PerspectiveCamera(50,1,0.1,300);
+  const rand=Math.random, C=h=>new THREE.Color(h);
+  const NEON=[0xff2bd6,0x22f0ff,0xc6ff3d,0x7b3cff,0xff7a1a,0xffffff];
+
+  const glowTex=(()=>{ const c=document.createElement('canvas'); c.width=c.height=64; const g=c.getContext('2d');
+    const gr=g.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,255,255,1)'); gr.addColorStop(0.2,'rgba(255,255,255,.7)'); gr.addColorStop(1,'rgba(255,255,255,0)');
+    g.fillStyle=gr; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(c); })();
+  const ADD={transparent:true,depthWrite:false,blending:THREE.AdditiveBlending};
+
+  /* grid floor */
+  const gridU={uOff:{value:0},uGlow:{value:0.5},c1:{value:C(0xff2bd6)},c2:{value:C(0x22f0ff)}};
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(200,200,1,1), new THREE.ShaderMaterial({
+    uniforms:gridU, extensions:{derivatives:true},
+    vertexShader:'varying vec3 vW; void main(){ vec4 w=modelMatrix*vec4(position,1.0); vW=w.xyz; gl_Position=projectionMatrix*viewMatrix*w; }',
+    fragmentShader:`uniform float uOff; uniform float uGlow; uniform vec3 c1; uniform vec3 c2; varying vec3 vW;
+      void main(){
+        vec2 p=vec2(vW.x, vW.z-uOff)*0.5;
+        vec2 g=abs(fract(p-0.5)-0.5)/fwidth(p);
+        float line=1.0-min(min(g.x,g.y),1.0);
+        float d=length(vW.xz);
+        float fade=exp(-d*0.045);
+        vec3 col=mix(c1,c2,smoothstep(-14.0,14.0,vW.x));
+        vec3 base=vec3(0.03,0.01,0.06)*(1.0-smoothstep(0.0,40.0,d));
+        gl_FragColor=vec4(base+col*line*(0.35+uGlow)*fade, 1.0);
+      }`
+  }));
+  floor.rotation.x=-Math.PI/2; scene.add(floor);
+
+  /* stars / haze */
+  {
+    const N=900,pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){ const a=rand()*Math.PI*2, y=0.05+rand()*0.9, r=120, s=Math.sqrt(1-y*y); pos.set([Math.cos(a)*s*r,y*r,Math.sin(a)*s*r],i*3); }
+    const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    scene.add(new THREE.Points(g,new THREE.PointsMaterial({size:0.8,map:glowTex,color:0xc9b8ff,opacity:.6,fog:false,...ADD})));
+  }
+
+  /* stage */
+  const stageGroup=new THREE.Group(); scene.add(stageGroup);
+  const deck=new THREE.Mesh(new THREE.BoxGeometry(11,0.5,3.4),new THREE.MeshStandardMaterial({color:0x120a22,roughness:0.35,metalness:0.6}));
+  deck.position.set(0,0.25,-0.6); stageGroup.add(deck);
+  const stripMat=new THREE.MeshBasicMaterial({color:0xff2bd6});
+  const strip=new THREE.Mesh(new THREE.BoxGeometry(11.02,0.06,0.06),stripMat); strip.position.set(0,0.5,1.12); stageGroup.add(strip);
+  const strip2=new THREE.Mesh(new THREE.BoxGeometry(11.02,0.04,0.04),new THREE.MeshBasicMaterial({color:0x22f0ff})); strip2.position.set(0,0.02,1.12); stageGroup.add(strip2);
+  // truss frame
+  const trussMat=new THREE.MeshStandardMaterial({color:0x3a3550,roughness:0.5,metalness:0.8});
+  [[-5.4,3.6],[5.4,3.6]].forEach(([x,h])=>{ const t=new THREE.Mesh(new THREE.BoxGeometry(0.22,h*2,0.22),trussMat); t.position.set(x,h,-1.6); stageGroup.add(t); });
+  const top=new THREE.Mesh(new THREE.BoxGeometry(11,0.22,0.22),trussMat); top.position.set(0,7.2,-1.6); stageGroup.add(top);
+  scene.add(new THREE.HemisphereLight(0x8a7aff,0x10061f,0.6));
+
+  /* voxel 20·10 */
+  const FONT={
+    '2':['01110','10001','00001','00010','00100','01000','11111'],
+    '0':['01110','10001','10011','10101','11001','10001','01110'],
+    '1':['00100','01100','00100','00100','00100','00100','01110'],
+    '.':['0','0','0','1','0','0','0']
+  };
+  const TEXT=['2','0','.','1','0'];
+  const cells=[];
+  { let col=0; TEXT.forEach((ch,ci)=>{ const g=FONT[ch]; const w=g[0].length;
+      for(let r=0;r<7;r++) for(let c=0;c<w;c++) if(g[r][c]==='1') cells.push({c:col+c,r});
+      col+=w+1; });
+    const W=col-1, P=0.27;
+    cells.forEach(cell=>{ cell.home=new THREE.Vector3((cell.c-(W-1)/2)*P, 3.1+(3-cell.r)*P, 0); cell.off=new THREE.Vector3(); cell.vel=new THREE.Vector3(); cell.u=cell.c/(W-1); });
+  }
+  const VC=cells.length;
+  const vox=new THREE.InstancedMesh(new THREE.BoxGeometry(0.23,0.23,0.23),new THREE.MeshBasicMaterial({color:0xffffff}),VC);
+  scene.add(vox);
+  const voxGlowPos=new Float32Array(VC*3), voxGlowCol=new Float32Array(VC*3);
+  const voxGlowGeo=new THREE.BufferGeometry(); voxGlowGeo.setAttribute('position',new THREE.BufferAttribute(voxGlowPos,3)); voxGlowGeo.setAttribute('color',new THREE.BufferAttribute(voxGlowCol,3));
+  const voxGlowMat=new THREE.PointsMaterial({size:1.1,map:glowTex,vertexColors:true,opacity:0.55,...ADD});
+  scene.add(new THREE.Points(voxGlowGeo,voxGlowMat));
+
+  /* equalizer banks */
+  const EQN=10;
+  const eq=new THREE.InstancedMesh((()=>{ const g=new THREE.BoxGeometry(0.2,1,0.2); g.translate(0,0.5,0); return g; })(),new THREE.MeshBasicMaterial({color:0xffffff}),EQN*2);
+  scene.add(eq);
+  const eqPos=[]; for(let s=0;s<2;s++) for(let i=0;i<EQN;i++) eqPos.push({x:(s?1:-1)*(3.9+i*0.26), i});
+
+  /* lasers */
+  const laserGeo=new THREE.CylinderGeometry(0.012,0.012,40,6,1,true); laserGeo.translate(0,20,0);
+  const laserGlowGeo=new THREE.CylinderGeometry(0.06,0.06,40,8,1,true); laserGlowGeo.translate(0,20,0);
+  const lasers=[];
+  for(let i=0;i<8;i++){
+    const col=[0x22f0ff,0xff2bd6,0xc6ff3d,0x22f0ff,0xff2bd6,0xc6ff3d,0x7b3cff,0x22f0ff][i];
+    const g=new THREE.Group(); g.position.set(-4.2+i*1.2,0.55,-1.2);
+    const core=new THREE.Mesh(laserGeo,new THREE.MeshBasicMaterial({color:col,opacity:0.9,...ADD,fog:false}));
+    const glow=new THREE.Mesh(laserGlowGeo,new THREE.MeshBasicMaterial({color:col,opacity:0.18,...ADD,fog:false}));
+    g.add(core); g.add(glow); scene.add(g); lasers.push({g,core,glow});
+  }
+  const UP=new THREE.Vector3(0,1,0), dirV=new THREE.Vector3();
+
+  /* spot cones */
+  const coneGeo=new THREE.ConeGeometry(1.7,9,28,1,true); coneGeo.translate(0,-4.5,0);
+  const cones=[];
+  [[-3.2,0xff2bd6],[3.2,0x22f0ff],[-1,0x7b3cff],[1,0xc6ff3d]].forEach(([x,col],i)=>{
+    const m=new THREE.Mesh(coneGeo,new THREE.MeshBasicMaterial({color:col,opacity:0.07,side:THREE.DoubleSide,...ADD}));
+    m.position.set(x,7.1,-1.4); scene.add(m); cones.push({m,ph:i*1.7});
+  });
+
+  /* disco ball */
+  const ball=new THREE.Mesh(new THREE.IcosahedronGeometry(0.55,2),new THREE.MeshPhongMaterial({color:0x9a9ab0,specular:0xffffff,shininess:140,flatShading:true}));
+  ball.position.set(0,6.3,-0.6); scene.add(ball);
+  const ballLights=[0xff2bd6,0x22f0ff,0xc6ff3d].map(c=>{ const l=new THREE.PointLight(c,1.6,6,2); scene.add(l); return l; });
+  const sparkPos=new Float32Array(30*3), sparkGeo=new THREE.BufferGeometry(); sparkGeo.setAttribute('position',new THREE.BufferAttribute(sparkPos,3));
+  const sparkMat=new THREE.PointsMaterial({size:0.35,map:glowTex,color:0xffffff,opacity:0.9,...ADD});
+  scene.add(new THREE.Points(sparkGeo,sparkMat));
+  const stageLight=new THREE.PointLight(0xff2bd6,1.2,14,2); stageLight.position.set(0,3,3); scene.add(stageLight);
+
+  /* crowd glowsticks */
+  const CN=280, crowdPos=new Float32Array(CN*3), crowdCol=new Float32Array(CN*3), crowd=[];
+  for(let i=0;i<CN;i++){
+    const x=(rand()-0.5)*16, z=2.6+rand()*9;
+    const c=C(NEON[i%4]); crowdCol.set([c.r,c.g,c.b],i*3);
+    crowd.push({x,z,y:0.9+rand()*0.6,ph:rand()*0.25,amp:0.15+rand()*0.2,sway:rand()*6});
+  }
+  const crowdGeo=new THREE.BufferGeometry(); crowdGeo.setAttribute('position',new THREE.BufferAttribute(crowdPos,3)); crowdGeo.setAttribute('color',new THREE.BufferAttribute(crowdCol,3));
+  scene.add(new THREE.Points(crowdGeo,new THREE.PointsMaterial({size:0.32,map:glowTex,vertexColors:true,opacity:0.9,...ADD})));
+
+  /* confetti */
+  const CF=500;
+  const confetti=new THREE.InstancedMesh(new THREE.PlaneGeometry(0.09,0.14),new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide}),CF);
+  const cf=[]; for(let i=0;i<CF;i++){ cf.push({alive:false,p:new THREE.Vector3(),v:new THREE.Vector3(),r:new THREE.Euler(),s:new THREE.Vector3()}); confetti.setColorAt(i,C(NEON[i%5])); }
+  scene.add(confetti);
+  const dummy=new THREE.Object3D();
+  function confettiBurst(n){
+    let k=0; for(const c of cf){ if(k>=n) break; if(c.alive) continue;
+      c.alive=true; c.p.set((rand()-0.5)*14, 7+rand()*3, -3+rand()*8); c.v.set((rand()-0.5)*1.2,-(0.8+rand()*1.2),(rand()-0.5)*1.2);
+      c.r.set(rand()*6,rand()*6,rand()*6); c.s.set((rand()-0.5)*8,(rand()-0.5)*8,(rand()-0.5)*8); k++; }
+  }
+
+  /* flower fireworks */
+  const FW=[]; const FWN=140;
+  for(let k=0;k<7;k++){
+    const pos=new Float32Array(FWN*3), g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    const m=new THREE.PointsMaterial({size:0.32,map:glowTex,color:0xffffff,opacity:0,...ADD});
+    const pts=new THREE.Points(g,m); scene.add(pts);
+    const dirs=[]; for(let i=0;i<FWN;i++){ const a=i/FWN*Math.PI*2; dirs.push(a); }
+    FW.push({pts,pos,m,life:0,center:new THREE.Vector3(),petals:5,R:2,dirs});
+  }
+  function firework(big){
+    const f=FW.find(f=>f.life<=0)||FW[0];
+    f.life=2.2; f.petals=[4,5,6,8][Math.floor(rand()*4)]; f.R=(big?2.6:1.6)+rand()*0.8;
+    f.center.set((rand()-0.5)*(big?4:11), 4.6+rand()*3, -4-rand()*4);
+    f.m.color.setHex(NEON[Math.floor(rand()*5)]); f.spin=rand()*6;
+  }
+
+  /* camera rig */
+  const user={yaw:0,pitch:0}; let lastInteract=-99;
+  const pointers=new Map();
+  canvas.addEventListener('pointerdown',e=>{ try{canvas.setPointerCapture(e.pointerId);}catch(_){} pointers.set(e.pointerId,{x:e.clientX,y:e.clientY}); canvas.classList.add('dragging'); lastInteract=clock; });
+  canvas.addEventListener('pointermove',e=>{ const p=pointers.get(e.pointerId); if(!p) return; user.yaw-=(e.clientX-p.x)*0.005; user.pitch+=(e.clientY-p.y)*0.003; user.pitch=Math.max(-0.15,Math.min(0.7,user.pitch)); user.yaw=Math.max(-1.3,Math.min(1.3,user.yaw)); p.x=e.clientX; p.y=e.clientY; lastInteract=clock; });
+  const up=e=>{ pointers.delete(e.pointerId); if(!pointers.size) canvas.classList.remove('dragging'); };
+  canvas.addEventListener('pointerup',up); canvas.addEventListener('pointercancel',up);
+
+  let portrait=false, cardShown=false;
+  function applyOffset(){
+    const w=innerWidth,h=innerHeight;
+    if(cardShown && portrait) camera.setViewOffset(w,h,0,h*0.2,w,h); else camera.clearViewOffset();
+    camera.updateProjectionMatrix();
+  }
+  function resize(){
+    const w=innerWidth,h=innerHeight; renderer.setSize(w,h,false); camera.aspect=w/h; portrait=camera.aspect<0.85;
+    camera.fov=portrait?64:50; applyOffset();
+  }
+  addEventListener('resize',resize); resize();
+
+  /* animation state */
+  let clock=0, tPrev=performance.now()/1000, prevBeat=-1, prevT=0, dropBoost=0, shake=0;
+  const tmpC=new THREE.Color();
+  function explode(power){ cells.forEach(c=>{ c.vel.set((rand()-0.5)*power,(rand()-0.2)*power,(rand()*0.6+0.4)*power); }); }
+
+  function onBeat(bi){
+    const bar=Math.floor(bi/4), b=bi%4, t=bi*BEAT;
+    if(b===0 && WORDS[bar]) showWord(WORDS[bar][0],WORDS[bar][1],WORDS[bar][2]);
+    if(bar===15 && b<3) showWord(String(3-b),'lime',1);
+    if(bar===15 && b===3) showWord('');
+    if(bar===16 && b===0){ dropBoost=1; explode(9); confettiBurst(340); firework(true); firework(true); firework(false); const f=$('#flash'); if(!reduceMotion){ f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); } }
+    else if(sectionAt(t)==='drop'){
+      if(b===0){ firework(bar%2===0); if(bar===24) confettiBurst(260); }
+      if(b===2 && rand()<0.6) firework(false);
+      if(kickOn(t)){ cells.forEach(c=>{ c.vel.z+=1.2+rand()*0.6; }); }
+    }
+    if(kickOn(t) && started && sectionAt(t)!=='build'){ passEl.classList.remove('thump'); void passEl.offsetWidth; passEl.classList.add('thump'); }
+  }
+
+  function frame(nowMs){
+    requestAnimationFrame(frame);
+    const now=nowMs/1000, dt=Math.min(0.1,Math.max(0,now-tPrev)); tPrev=now; clock+=dt;
+    // song time: follow audio when playing, otherwise run our own clock
+    if(started){
+      if(audio && musicOn && !audio.paused && audio.readyState>=2) songT=audio.currentTime;
+      else songT+=dt;
+    }
+    const t=((songT%LOOP)+LOOP)%LOOP;
+    const idle=!started;
+    const sec=sectionAt(t);
+    const energy=idle?0.35:energyAt(t);
+    const bp=(t%BEAT)/BEAT;
+    const kick=idle?0.3*Math.exp(-((clock%BEAT)/BEAT)*5):(kickOn(t)?Math.exp(-bp*5):0)*(t>=BLACKOUT&&t<30?0:1);
+    const buildK=sec==='build'?(t-15)/15:0;
+
+    if(started){
+      const bi=Math.floor(t/BEAT);
+      if(t<prevT-1) prevBeat=-1; // song looped
+      if(bi!==prevBeat){
+        if(bi>prevBeat && bi-prevBeat<8){ for(let k=prevBeat+1;k<=bi;k++) onBeat(k); } else onBeat(bi);
+        prevBeat=bi;
+      }
+      prevT=t;
+    }
+    dropBoost=Math.max(0,dropBoost-dt*0.6);
+
+    /* floor */
+    gridU.uOff.value+=dt*(2+energy*7);
+    gridU.uGlow.value=energy*(0.35+0.9*kick);
+    const hueShift=(clock*0.03)%1;
+    gridU.c1.value.setHSL((0.86+hueShift)%1,1,0.55); gridU.c2.value.setHSL((0.52+hueShift)%1,1,0.5);
+
+    /* voxels */
+    const shakeAmt=reduceMotion?0:(sec==='build'?buildK*buildK*0.05:0);
+    for(let i=0;i<VC;i++){
+      const c=cells[i];
+      c.vel.addScaledVector(c.off,-dt*22); c.vel.multiplyScalar(Math.exp(-dt*4.5)); c.off.addScaledVector(c.vel,dt);
+      const wave=Math.sin(c.u*8-clock*4)*0.08*energy;
+      dummy.position.copy(c.home).add(c.off); dummy.position.z+=wave+kick*0.12*energy;
+      dummy.position.x+=(rand()-0.5)*shakeAmt; dummy.position.y+=(rand()-0.5)*shakeAmt;
+      dummy.rotation.set(c.off.y*0.8,c.off.x*0.8,0); const s=1+kick*0.18*energy; dummy.scale.set(s,s,s); dummy.updateMatrix();
+      vox.setMatrixAt(i,dummy.matrix);
+      const h=(0.88-c.u*0.38+hueShift*0.5)%1, l=0.2+0.45*energy*(0.55+0.45*kick)+(sec==='drop'?0.08*Math.sin(c.u*12+clock*6):0);
+      tmpC.setHSL(h,1,Math.min(0.75,l)); vox.setColorAt(i,tmpC);
+      voxGlowPos[i*3]=dummy.position.x; voxGlowPos[i*3+1]=dummy.position.y; voxGlowPos[i*3+2]=dummy.position.z;
+      voxGlowCol[i*3]=tmpC.r; voxGlowCol[i*3+1]=tmpC.g; voxGlowCol[i*3+2]=tmpC.b;
+    }
+    vox.instanceMatrix.needsUpdate=true; if(vox.instanceColor) vox.instanceColor.needsUpdate=true;
+    voxGlowGeo.attributes.position.needsUpdate=true; voxGlowGeo.attributes.color.needsUpdate=true;
+    voxGlowMat.opacity=0.2+0.5*energy*(0.5+0.5*kick);
+
+    /* equalizer */
+    for(let s=0;s<2;s++) for(let i=0;i<EQN;i++){
+      const k=s*EQN+i, e=eqPos[k];
+      const low=i<3?kick*1.3:kick*0.4;
+      const mid=Math.abs(Math.sin(clock*(2.3+i*0.7)+i*1.3))*0.6;
+      const lvl=idle?0.15+mid*0.2:Math.max(0.05,(low+mid*0.8+rand()*0.15)*energy);
+      dummy.position.set(e.x,0.5,-0.2); dummy.rotation.set(0,0,0); dummy.scale.set(1,0.1+lvl*2.4,1); dummy.updateMatrix(); eq.setMatrixAt(k,dummy.matrix);
+      tmpC.setHSL((0.52+lvl*0.3+hueShift)%1,1,0.3+0.3*Math.min(1,lvl)); eq.setColorAt(k,tmpC);
+    }
+    eq.instanceMatrix.needsUpdate=true; if(eq.instanceColor) eq.instanceColor.needsUpdate=true;
+
+    /* lasers */
+    const nLasers=idle?0:sec==='groove'?4:sec==='build'?(t<BLACKOUT?6:0):8;
+    lasers.forEach((L,i)=>{
+      const on=i<nLasers || (sec==='drop');
+      const visible=(sec==='groove'?(i%2===0):true) && on && !(t>=BLACKOUT&&t<30) && !idle;
+      L.g.visible=visible; if(!visible) return;
+      let a,e;
+      if(sec==='drop'){ const swing=Math.sin(t*Math.PI/(BEAT*2)); a=((i/7)-0.5)*1.6*swing+Math.sin(t*0.7+i)*0.15; e=0.12+0.28*Math.abs(Math.sin(t*1.7+i*0.6)); }
+      else if(sec==='build'){ a=((i/7)-0.5)*(0.4+buildK*1.2)+Math.sin(clock*0.6+i)*0.1; e=0.15+buildK*0.6; }
+      else { a=Math.sin(clock*0.5+i)*0.7; e=0.2+0.12*Math.sin(clock*0.7+i); }
+      dirV.set(Math.sin(a)*Math.cos(e),Math.sin(e),Math.cos(a)*Math.cos(e)).normalize();
+      L.g.quaternion.setFromUnitVectors(UP,dirV);
+      L.core.material.opacity=0.5+0.5*kick*energy+0.2*dropBoost; L.glow.material.opacity=0.08+0.2*kick*energy;
+    });
+
+    /* cones */
+    cones.forEach((c,i)=>{
+      c.m.rotation.z=Math.sin(clock*(0.6+energy*0.8)+c.ph)*0.45; c.m.rotation.x=Math.cos(clock*0.5+c.ph)*0.25+0.15;
+      c.m.material.opacity=(t>=BLACKOUT&&t<30&&started)?0:(0.03+0.07*energy+0.05*kick*energy);
+      c.m.visible=!(sec==='groove' && i>1 && started) || idle;
+    });
+
+    /* disco ball + lights */
+    ball.rotation.y+=dt*(0.4+energy*1.2);
+    ballLights.forEach((l,i)=>{ const a=clock*(0.8+i*0.3)+i*2.1; l.position.set(ball.position.x+Math.cos(a)*1.4,ball.position.y-0.6+Math.sin(a*1.3)*0.4,ball.position.z+Math.sin(a)*1.4); l.intensity=(0.6+1.6*energy)*(t>=BLACKOUT&&t<30&&started?0:1); });
+    for(let i=0;i<30;i++){
+      const a=rand()*Math.PI*2, y=(rand()-0.5)*2, r=Math.sqrt(1-y*y)*0.56;
+      if(rand()<0.25*energy+0.05){ sparkPos[i*3]=ball.position.x+Math.cos(a)*r; sparkPos[i*3+1]=ball.position.y+y*0.56; sparkPos[i*3+2]=ball.position.z+Math.sin(a)*r; }
+    }
+    sparkGeo.attributes.position.needsUpdate=true; sparkMat.opacity=0.3+0.7*energy;
+    stageLight.color.setHSL((0.88+hueShift+kick*0.1)%1,1,0.5); stageLight.intensity=0.4+2.2*kick*energy;
+    stripMat.color.setHSL((0.9+hueShift+clock*0.1)%1,1,0.3+0.35*energy*(0.4+0.6*kick));
+
+    /* crowd */
+    for(let i=0;i<CN;i++){
+      const c=crowd[i]; const ph=((t/BEAT)+c.ph)%1;
+      const jump=idle?Math.sin(clock*2+c.sway)*0.03:Math.pow(Math.sin(ph*Math.PI),2)*c.amp*(0.3+energy)*(t>=BLACKOUT&&t<30?0:1);
+      crowdPos[i*3]=c.x+Math.sin(clock*1.6+c.sway)*0.12*energy; crowdPos[i*3+1]=c.y+jump+buildK*0.4*(sec==='build'?1:0); crowdPos[i*3+2]=c.z;
+    }
+    crowdGeo.attributes.position.needsUpdate=true;
+
+    /* confetti */
+    for(let i=0;i<CF;i++){
+      const c=cf[i];
+      if(!c.alive){ dummy.position.set(0,-50,0); dummy.scale.set(0,0,0); }
+      else {
+        c.p.addScaledVector(c.v,dt); c.p.x+=Math.sin(clock*2+i)*dt*0.4; c.r.x+=c.s.x*dt; c.r.y+=c.s.y*dt; c.r.z+=c.s.z*dt;
+        if(c.p.y<0.05) c.alive=false;
+        dummy.position.copy(c.p); dummy.rotation.copy(c.r); dummy.scale.set(1,1,1);
+      }
+      dummy.updateMatrix(); confetti.setMatrixAt(i,dummy.matrix);
+    }
+    confetti.instanceMatrix.needsUpdate=true;
+
+    /* fireworks */
+    for(const f of FW){
+      if(f.life<=0){ f.m.opacity=0; continue; }
+      f.life-=dt; const age=2.2-f.life, R=f.R*(1-Math.exp(-age*3.2)), drop=0.35*age*age;
+      for(let i=0;i<FWN;i++){
+        const a=f.dirs[i]+f.spin, petal=0.35+0.65*Math.abs(Math.cos(f.petals*a*0.5));
+        const ring=(i%3===0)?0.55:1;
+        f.pos[i*3]=f.center.x+Math.cos(a)*R*petal*ring; f.pos[i*3+1]=f.center.y+Math.sin(a)*R*petal*ring-drop; f.pos[i*3+2]=f.center.z;
+      }
+      f.pts.geometry.attributes.position.needsUpdate=true;
+      f.m.opacity=Math.max(0,Math.min(1,f.life/1.2))*(0.6+0.4*Math.sin(age*30));
+    }
+
+    /* camera */
+    const auto=idle?clock*0.12:Math.sin(clock*0.11)*0.45;
+    if(clock-lastInteract>6){ user.yaw*=1-dt*0.3; user.pitch*=1-dt*0.3; }
+    const yaw=auto+user.yaw;
+    let dist=(portrait?14.5:10.5)*(sec==='build'?1-buildK*0.18:1)*(idle?1.25:1);
+    const pitch=(idle?0.32:0.16)+user.pitch;
+    const tgt=new THREE.Vector3(0,2.6,0);
+    camera.position.set(tgt.x+Math.sin(yaw)*Math.cos(pitch)*dist, tgt.y+Math.sin(pitch)*dist+0.4, tgt.z+Math.cos(yaw)*Math.cos(pitch)*dist);
+    if(!reduceMotion && sec==='drop'){ shake=kick*0.06+dropBoost*0.25; camera.position.x+=(rand()-0.5)*shake; camera.position.y+=(rand()-0.5)*shake; }
+    camera.lookAt(tgt);
+    const fovBase=portrait?64:50, punch=reduceMotion?0:(sec==='drop'?kick*1.6:kick*0.6);
+    if(Math.abs(camera.fov-(fovBase-punch))>0.01){ camera.fov=fovBase-punch; camera.updateProjectionMatrix(); }
+
+    renderer.render(scene,camera);
+  }
+  requestAnimationFrame(frame);
+  return { setCard(v){ cardShown=v; applyOffset(); } };
+}
+
+/* ---------------- flow ---------------- */
+function start(fromStart){
+  started=true; songT=0;
+  if(stage) stage.setCard(true);
+  passEl.classList.add('show'); revealLines();
+  $('#live').classList.add('show');
+}
+$('#openBtn').addEventListener('click',()=>{
+  $('#intro').classList.add('gone');
+  musicPlay(true); start(true);
+});
+$('#replayBtn').addEventListener('click',()=>{
+  songT=0; if(audio){ try{ audio.currentTime=0; }catch(e){} if(!musicOn) musicPlay(true); }
+  revealLines(); showWord('');
+});
+})();
+</script>
+
+</body>
+</html>
